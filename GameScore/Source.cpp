@@ -16,7 +16,7 @@ public:
 	Score(int max_cap=10);
 	~Score();
 	void add(const Game& player_info);
-	void remove(int index);
+	Game remove(int index);
 private:
 	int max_capacity;
 	int current_cap;
@@ -68,4 +68,17 @@ void Score::add(const Game& player_info)
 		next_elem--;
 	}
 	entries[next_elem + 1] = player_info;
+}
+
+Game Score::remove(int index)
+{
+	if ((index < 0) || (index > max_capacity))
+		throw ("Out of boundaries");
+
+	Game player_to_remove = entries[index];
+	for (int next_index = index + 1; next_index < max_capacity; next_index++) {
+		entries[next_index - 1] = entries[next_index];
+	}
+	max_capacity--;
+	return player_to_remove;
 }
