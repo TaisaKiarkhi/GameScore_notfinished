@@ -17,6 +17,7 @@ public:
 	~Score();
 	void add(const Game& player_info);
 	Game remove(int index);
+	void insertion_sort(Game A[], int size_s);
 private:
 	int max_capacity;
 	int current_cap;
@@ -81,4 +82,19 @@ Game Score::remove(int index)
 	}
 	max_capacity--;
 	return player_to_remove;
+}
+
+void Score::insertion_sort(Game A[], int size_s)
+{
+	for (int i{ 1 }; i < size_s; i++) {
+		int j = i - 1;
+		Game curr = A[i];
+		int curr_score = A[i].GetScore();
+
+		while ((j >= 0) && (A[j].GetScore() > curr_score)) {
+			A[j + 1] = A[j];
+			j--;
+		}
+		A[j + 1]= curr;
+	}
 }
